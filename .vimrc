@@ -10,6 +10,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'isRuslan/vim-es6'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'spolu/dwm.vim'
 
 filetype plugin indent on
 
@@ -34,6 +35,8 @@ set smartcase
 set hlsearch
 set ruler
 set incsearch
+set mouse=a
+set ttymouse=xterm2
 
 syntax on
 colorscheme Tomorrow-Night-Bright
@@ -65,7 +68,7 @@ let NERDTreeIgnore=['\.pyc$', '\.swp$']
 let NERDTreeQuitOnOpen=1
 let NERDTreeMinimalUI=1
 let NERDTreeShowBookmarks=1
-map <C-n> :NERDTreeToggle<CR>
+map <C-\> :NERDTreeToggle<CR>
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
