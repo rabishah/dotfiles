@@ -11,6 +11,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'isRuslan/vim-es6'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'spolu/dwm.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 filetype plugin indent on
 
