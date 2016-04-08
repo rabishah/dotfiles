@@ -12,10 +12,9 @@ Plugin 'isRuslan/vim-es6'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'spolu/dwm.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'chun-yang/auto-pairs'
 
 filetype plugin indent on
-
-map <C-n> :NERDTreeToggle<CR>
 
 set nu
 set noswapfile
@@ -42,10 +41,6 @@ set ttymouse=xterm2
 syntax on
 colorscheme Tomorrow-Night-Bright
 
-" vertical, horizontal split
-nnoremap ,v <C-w>v
-nnoremap ,h <C-w>s
-
 " Vim javascript folding
 set foldmethod=indent
 set foldlevelstart=99
@@ -55,13 +50,6 @@ let javascript_enable_domhtmlcss=1
 
 " JSX syntax in .js file
 let g:jsx_ext_required = 0
-
-"to create a new line cmd mode without going to insert
-" nmap <leader>k O<esc>k0
-" nmap <leader>j o<esc>j0
-
-"Break a line into two and retain cursor position
-" nmap <leader>b i<cr><esc>k$
 
 "NERDTree
 let NERDTreeChDirMode=1
@@ -77,3 +65,12 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " split navigations
 set splitbelow
 set splitright
+
+" ignore files listed in .gitignore for controlp
+let g:ctrlp_user_command = {
+  \ 'types': {
+  \  1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+  \  2: ['.hg', 'hg --cwd %s locate -I .'],
+  \ },
+  \ 'fallback': 'find %s -type f'
+  \ }
