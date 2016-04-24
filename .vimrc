@@ -1,9 +1,9 @@
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Plugin 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'tomtom/tcomment_vim.git'
 Plugin 'pangloss/vim-javascript'
@@ -14,6 +14,7 @@ Plugin 'spolu/dwm.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'chun-yang/auto-pairs'
 
+call vundle#end()
 filetype plugin indent on
 
 set nu
