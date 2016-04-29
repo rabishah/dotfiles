@@ -3,6 +3,7 @@
 # jumpstart
 VIM=~/.vim
 [[ ! -d $VIM  ]] || mkdir $VIM
+[[ ! -d $VIM/bookmarks  ]] || mkdir $VIM/bookmarks
 
 # color scheme
 VIMCOLORS=~/.vim/colors

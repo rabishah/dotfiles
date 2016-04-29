@@ -13,6 +13,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'spolu/dwm.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'chun-yang/auto-pairs'
+Plugin 'mhinz/vim-startify'
 
 call vundle#end()
 filetype plugin indent on
@@ -40,6 +41,8 @@ set mouse=a
 set ttymouse=xterm2
 
 syntax on
+
+" Colorscheme
 colorscheme Tomorrow-Night-Bright
 
 " Vim javascript folding
@@ -75,3 +78,58 @@ let g:ctrlp_user_command = {
   \ },
   \ 'fallback': 'find %s -type f'
   \ }
+
+" vim startify customization
+autocmd User Startified setlocal cursorline
+
+let g:startify_enable_special         = 0
+let g:startify_files_number           = 8
+let g:startify_relative_path          = 1
+let g:startify_change_to_dir          = 1
+let g:startify_update_oldfiles        = 1
+let g:startify_session_autoload       = 1
+let g:startify_session_persistence    = 1
+let g:startify_session_delete_buffers = 1
+
+let g:startify_list_order = [
+  \ ['   recently used files:'],
+  \ 'files',
+  \ ['   recently used directories:'],
+  \ 'dir',
+  \ ['   sessions:'],
+  \ 'sessions',
+  \ ['   my bookmarks:'],
+  \ 'bookmarks',
+  \ ]
+
+let g:startify_bookmarks = [
+            \ { 'c': '~/.vimrc'  },
+            \ { 'z': '~/.zshrc'  },
+            \ { 'b': '~/.bashrc'  },
+            \ { 't': '~/.tmux.conf'  },
+            \ { 'a': '~/.aliases'  },
+            \ ]
+
+let g:startify_custom_footer =
+      \ ['', "   - @rabishah / c3p0.re", '']
+
+let g:startify_custom_indices = ['f', 'g', 'h', 'p', 't', 'y']
+
+let g:ascii = [
+      \ '        __',
+      \ '.--.--.|__|.--------.',
+      \ '|  |  ||  ||        |',
+      \ ' \___/ |__||__|__|__|',
+      \ '']
+
+let g:startify_custom_header =
+      \ 'map(g:ascii + startify#fortune#boxed(), "\"   \".v:val")'
+
+hi StartifyBracket ctermfg=240
+hi StartifyFile    ctermfg=147
+hi StartifyFooter  ctermfg=240
+hi StartifyHeader  ctermfg=114
+hi StartifyNumber  ctermfg=215
+hi StartifyPath    ctermfg=245
+hi StartifySlash   ctermfg=240
+hi StartifySpecial ctermfg=240
