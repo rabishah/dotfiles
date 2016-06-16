@@ -14,6 +14,8 @@ Plugin 'spolu/dwm.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'chun-yang/auto-pairs'
 Plugin 'mhinz/vim-startify'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plugin 'posva/vim-vue'
 
 call vundle#end()
 filetype plugin indent on

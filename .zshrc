@@ -12,3 +12,12 @@ HISTIGNORE='ls:bg:fg:history'
 HISTTIMEFORMAT='%F %T '
 #store history immediately
 PROMPT_COMMAND='history -a'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ -s "/Users/rabi/.gvm/scripts/gvm" ]] && source "/Users/rabi/.gvm/scripts/gvm"
+
+export GOROOT_BOOTSTRAP=$GOROOT
+export GOROOT=/Users/rabi/.gvm/gos/go1.6.2
+export GOPATH=/Users/rabi/Personal/golang
+export PATH=$PATH:/Users/rabi/Personal/golang/bin
