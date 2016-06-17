@@ -16,6 +16,7 @@ Plugin 'chun-yang/auto-pairs'
 Plugin 'mhinz/vim-startify'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plugin 'posva/vim-vue'
+Plugin 'Chiel92/vim-autoformat'
 
 call vundle#end()
 filetype plugin indent on
@@ -105,17 +106,17 @@ let g:startify_list_order = [
   \ ]
 
 let g:startify_bookmarks = [
-            \ { 'c': '~/.vimrc'  },
-            \ { 'z': '~/.zshrc'  },
-            \ { 'b': '~/.bashrc'  },
-            \ { 't': '~/.tmux.conf'  },
-            \ { 'a': '~/.aliases'  },
+            \ { 'a': '~/.vimrc'  },
+            \ { 'b': '~/.zshrc'  },
+            \ { 'c': '~/.bashrc'  },
+            \ { 'd': '~/.tmux.conf'  },
+            \ { 'e': '~/.aliases'  },
             \ ]
 
 let g:startify_custom_footer =
       \ ['', "   - @rabishah / c3p0.re", '']
 
-let g:startify_custom_indices = ['f', 'g', 'h', 'p', 't', 'y']
+let g:startify_custom_indices = ['f', 'g', 'h', 'i', 'j', 'k']
 
 let g:ascii = [
       \ '        __',
@@ -135,3 +136,8 @@ hi StartifyNumber  ctermfg=215
 hi StartifyPath    ctermfg=245
 hi StartifySlash   ctermfg=240
 hi StartifySpecial ctermfg=240
+
+" remove trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
+" autoformat on save
+au BufWrite * :Autoformat
