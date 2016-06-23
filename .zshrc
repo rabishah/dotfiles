@@ -21,3 +21,5 @@ export GOROOT_BOOTSTRAP=$GOROOT
 export GOROOT=/Users/rabi/.gvm/gos/go1.6.2
 export GOPATH=/Users/rabi/Personal/golang
 export PATH=$PATH:/Users/rabi/Personal/golang/bin
+
+source /Users/rabi/k/k.sh

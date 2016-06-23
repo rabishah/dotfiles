@@ -75,12 +75,12 @@ set splitright
 
 " ignore files listed in .gitignore for controlp
 let g:ctrlp_user_command = {
-  \ 'types': {
-  \  1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
-  \  2: ['.hg', 'hg --cwd %s locate -I .'],
-  \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
+      \ 'types': {
+      \  1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+      \  2: ['.hg', 'hg --cwd %s locate -I .'],
+      \ },
+      \ 'fallback': 'find %s -type f'
+      \ }
 
 " vim startify customization
 autocmd User Startified setlocal cursorline
@@ -95,23 +95,23 @@ let g:startify_session_persistence    = 1
 let g:startify_session_delete_buffers = 1
 
 let g:startify_list_order = [
-  \ ['   recently used files:'],
-  \ 'files',
-  \ ['   recently used directories:'],
-  \ 'dir',
-  \ ['   sessions:'],
-  \ 'sessions',
-  \ ['   my bookmarks:'],
-  \ 'bookmarks',
-  \ ]
+      \ ['   recently used files:'],
+      \ 'files',
+      \ ['   recently used directories:'],
+      \ 'dir',
+      \ ['   sessions:'],
+      \ 'sessions',
+      \ ['   my bookmarks:'],
+      \ 'bookmarks',
+      \ ]
 
 let g:startify_bookmarks = [
-            \ { 'a': '~/.vimrc'  },
-            \ { 'b': '~/.zshrc'  },
-            \ { 'c': '~/.bashrc'  },
-            \ { 'd': '~/.tmux.conf'  },
-            \ { 'e': '~/.aliases'  },
-            \ ]
+      \ { 'a': '~/.vimrc'  },
+      \ { 'b': '~/.zshrc'  },
+      \ { 'c': '~/.bashrc'  },
+      \ { 'd': '~/.tmux.conf'  },
+      \ { 'e': '~/.aliases'  },
+      \ ]
 
 let g:startify_custom_footer =
       \ ['', "   - @rabishah / c3p0.re", '']
@@ -140,4 +140,5 @@ hi StartifySpecial ctermfg=240
 " remove trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 " autoformat on save
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
+noremap <F3> :Autoformat<CR>
