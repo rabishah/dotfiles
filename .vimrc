@@ -1,57 +1,124 @@
 set nocompatible
-filetype off
 
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'tomtom/tcomment_vim.git'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'isRuslan/vim-es6'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'spolu/dwm.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'chun-yang/auto-pairs'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plugin 'posva/vim-vue'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
-
 call vundle#end()
 filetype plugin indent on
 
+set encoding=utf-8
 set nu
 set noswapfile
 set noerrorbells
-set backspace=2
+
+let mapleader = ","
+
+" tabs and indentations
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set smarttab
 set expandtab
-set autoindent    " always set autoindenting on
-set copyindent    " copy the previous indentation on autoindenting
+set autoindent
+set copyindent
+set backspace=indent,eol,start
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" cursor and scroll
 set cursorline    "higlight cursor position
-set guifont=Source\ Code\ Pro\ Regular\ 12
-set showmatch
+set scrolloff=3   "show atleast 3 lines above/below cursor while scrolling
+set ruler
+
+" searching / moving
+nnoremap / /\v
+vnoremap / /\v
+nnoremap <tab> %
+vnoremap <tab> %
 set ignorecase
 set smartcase
+set showmatch
 set hlsearch
-set ruler
 set incsearch
+set gdefault  "substitutions globally on lines
+
+" long lines
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+" set colorcolumn=95  too appealing for current theme and color
+
+set showmode
+set showcmd       "no of lines selected
+set hidden        "keep invisible buffers loaded
+set wildmenu      "command line completion
+set wildmode=list:longest   "in command line completion, first tab for list, second for longest
+set ttyfast
+set visualbell
+set laststatus=2
+set relativenumber
+set undofile
+
+set guifont=Source\ Code\ Pro\ Regular\ 12
 set mouse=a
 set ttymouse=xterm2
 
+" split navigations
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 syntax on
 
-" Colorscheme
+" color scheme
 colorscheme Tomorrow-Night-Bright
 
-" Vim javascript folding
+" doing it vim way
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+" training my finger
+inoremap jk <esc>
+inoremap <esc> <nop>
+" save efficiently
+nnoremap ; :
+
+" leader key
+" reselect the text that was just pasted
+nnoremap <leader>v V`]
+" open vimrc
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" open a new vertical split and switch over to it
+nnoremap <leader>w <C-w>v<C-w>l
+" delete a line
+nnoremap <leader>d dd
+" clear all highlights
+nnoremap <leader><space> :noh<cr>
+
+" vim javascript folding
 set foldmethod=indent
 set foldlevelstart=99
 
@@ -68,13 +135,6 @@ let NERDTreeQuitOnOpen=1
 let NERDTreeMinimalUI=1
 let NERDTreeShowBookmarks=1
 map <C-\> :NERDTreeToggle<CR>
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-" split navigations
-set splitbelow
-set splitright
 
 " ignore files listed in .gitignore for controlp
 let g:ctrlp_user_command = {
