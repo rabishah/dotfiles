@@ -13,10 +13,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'spolu/dwm.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'chun-yang/auto-pairs'
-Plugin 'mhinz/vim-startify'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plugin 'posva/vim-vue'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 filetype plugin indent on
@@ -82,63 +85,108 @@ let g:ctrlp_user_command = {
       \ 'fallback': 'find %s -type f'
       \ }
 
-" vim startify customization
-autocmd User Startified setlocal cursorline
-
-let g:startify_enable_special         = 0
-let g:startify_files_number           = 8
-let g:startify_relative_path          = 1
-let g:startify_change_to_dir          = 1
-let g:startify_update_oldfiles        = 1
-let g:startify_session_autoload       = 1
-let g:startify_session_persistence    = 1
-let g:startify_session_delete_buffers = 1
-
-let g:startify_list_order = [
-      \ ['   recently used files:'],
-      \ 'files',
-      \ ['   recently used directories:'],
-      \ 'dir',
-      \ ['   sessions:'],
-      \ 'sessions',
-      \ ['   my bookmarks:'],
-      \ 'bookmarks',
-      \ ]
-
-let g:startify_bookmarks = [
-      \ { 'a': '~/.vimrc'  },
-      \ { 'b': '~/.zshrc'  },
-      \ { 'c': '~/.bashrc'  },
-      \ { 'd': '~/.tmux.conf'  },
-      \ { 'e': '~/.aliases'  },
-      \ ]
-
-let g:startify_custom_footer =
-      \ ['', "   - @rabishah / c3p0.re", '']
-
-let g:startify_custom_indices = ['f', 'g', 'h', 'i', 'j', 'k']
-
-let g:ascii = [
-      \ '        __',
-      \ '.--.--.|__|.--------.',
-      \ '|  |  ||  ||        |',
-      \ ' \___/ |__||__|__|__|',
-      \ '']
-
-let g:startify_custom_header =
-      \ 'map(g:ascii + startify#fortune#boxed(), "\"   \".v:val")'
-
-hi StartifyBracket ctermfg=240
-hi StartifyFile    ctermfg=147
-hi StartifyFooter  ctermfg=240
-hi StartifyHeader  ctermfg=114
-hi StartifyNumber  ctermfg=215
-hi StartifyPath    ctermfg=245
-hi StartifySlash   ctermfg=240
-hi StartifySpecial ctermfg=240
-
 " remove trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 " autoformat on save
 " au BufWrite * :Autoformat
 noremap <F3> :Autoformat<CR>
+
+" neocomplete
+" -------------
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+""let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+"" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'')'
+
+" neo snippets
+" -------------
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'

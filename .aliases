@@ -65,7 +65,7 @@ alias gloga='git log --oneline --decorate --graph --all'
 
 alias gm='git merge'
 alias gmom='git merge origin/master'
-alias go='git checkout '
+alias goc='git checkout '
 alias gp='git push'
 
 alias gr='git remote'
