@@ -118,6 +118,9 @@ nnoremap <leader>d dd
 " clear all highlights
 nnoremap <leader><space> :noh<cr>
 
+vnoremap <leader>/ :TComment<Enter>
+nnoremap <leader>/ :TComment<Enter>
+
 " vim javascript folding
 set foldmethod=indent
 set foldlevelstart=99
