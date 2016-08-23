@@ -100,11 +100,17 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
+
 " training my finger
 inoremap jk <esc>
 inoremap <esc> <nop>
+
 " save efficiently
 nnoremap ; :
+
+" insert newline without entering insert mode
+nmap <S-Enter> Ojk
+nmap <CR> ojk
 
 " leader key
 " reselect the text that was just pasted
@@ -117,9 +123,12 @@ nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>d dd
 " clear all highlights
 nnoremap <leader><space> :noh<cr>
-
+" comment lines
 vnoremap <leader>/ :TComment<Enter>
 nnoremap <leader>/ :TComment<Enter>
+" swap lines
+nnoremap <leader>sj ^ddp
+nnoremap <leader>sk ^ddkP
 
 " vim javascript folding
 set foldmethod=indent
