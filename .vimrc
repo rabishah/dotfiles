@@ -10,9 +10,10 @@ Plugin 'mxw/vim-jsx'
 Plugin 'isRuslan/vim-es6'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'chun-yang/auto-pairs'
+Plugin 'tpope/vim-surround'
 Plugin 'posva/vim-vue'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'chun-yang/auto-pairs'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
@@ -24,8 +25,6 @@ set encoding=utf-8
 set nu
 set noswapfile
 set noerrorbells
-
-let mapleader = ","
 
 " tabs and indentations
 set tabstop=2
@@ -102,33 +101,146 @@ nnoremap j gj
 nnoremap k gk
 
 " training my finger
-inoremap jk <esc>
+inoremap jj <esc>
 inoremap <esc> <nop>
 
 " save efficiently
 nnoremap ; :
 
 " insert newline without entering insert mode
-nmap <S-Enter> Ojk
-nmap <CR> ojk
+nmap <S-Enter> Ojj
+nmap <CR> ojj
 
 " leader key
-" reselect the text that was just pasted
-nnoremap <leader>v V`]
+let mapleader = "\<Space>"
+
+" colorscheme
+noremap <leader>1 :colorscheme delek<cr>
+noremap <leader>2 :colorscheme tomorrow-night-bright<cr>
+noremap <leader>3 :colorscheme slate<cr>
+noremap <leader>4 :colorscheme badwolf<cr>
+
+" visual mode
+" nmap <Leader><Leader> V
+
+" open a new file
+nnoremap <Leader>o :CtrlP<CR>
+" save a file
+nnoremap <Leader>w :w<CR>
+" quit vim
+nnoremap <Leader>q :wq<CR>
+
+" vimrc
+" source vimrc upon save (takes a lot of time!)
+" autocmd bufwritepost .vimrc source $MYVIMRC
 " open vimrc
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" source vimrc and exit
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" reselect the text that was just pasted
+nnoremap <leader>v V`]
+
 " open a new vertical split and switch over to it
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>vs <C-w>v<C-w>l
 " delete a line
 nnoremap <leader>d dd
 " clear all highlights
-nnoremap <leader><space> :noh<cr>
+nnoremap <leader><leader> :noh<cr>
+
 " comment lines
 vnoremap <leader>/ :TComment<Enter>
 nnoremap <leader>/ :TComment<Enter>
+
 " swap lines
 nnoremap <leader>sj ^ddp
 nnoremap <leader>sk ^ddkP
+
+" copy and paste to system clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" find and replace
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+
+" Inspired by Steve Losh's tutorial (http://learnvimscriptthehardway.stevelosh.com/chapters/09.html);
+" https://github.com/wilmoore/dotfiles/blob/master/active/.vim/vimrc.d/keybindings.vim
+" example.com => "example.com"
+:no <leader><leader>" gEwi"<esc>Ea"<esc>B
+:no <leader>" gEwi"<esc>ea"<esc>B
+:vn <leader>" "1c"<esc>"1pa"<esc>B
+
+
+" example.com => 'example.com'
+:no <leader><leader>' gEwi'<esc>Ea'<esc>B
+:no <leader>' gEwi'<esc>ea'<esc>B
+:vn <leader>' "1c'<esc>"1pa'<esc>B
+
+" example.com => `example.com`
+:no <leader><leader>` gEwi`<esc>Ea`<esc>B
+:no <leader>` gEwi`<esc>ea`<esc>B
+:vn <leader>` "1c`<esc>"1pa`<esc>B
+
+" example.com => *example.com*
+:no <leader><leader>* gEwi*<esc>Ea*<esc>B
+:no <leader>* gEwi*<esc>ea*<esc>B
+:vn <leader>* "1c*<esc>"1pa*<esc>B
+
+" example.com => _example.com_
+:no <leader><leader>_ gEwi_<esc>Ea_<esc>B
+:no <leader>_ gEwi_<esc>ea_<esc>B
+:vn <leader>_ "1c_<esc>"1pa_<esc>B
+
+" example.com => {example.com}
+:no <leader><leader>{ gEwi{<esc>Ea}<esc>B
+:no <leader>{ gEwi{<esc>ea}<esc>B
+:vn <leader>{ "1c{<esc>"1pa}<esc>B
+
+:no <leader><leader>} gEwi{<esc>Ea}<esc>B
+:no <leader>} gEwi{<esc>ea}<esc>B
+:vn <leader>} "1c{<esc>"1pa}<esc>B
+
+" example.com => example.com
+:no <leader><leader>[ gEwi[<esc>Ea]<esc>B
+:no <leader>[ gEwi[<esc>ea]<esc>B
+:vn <leader>[ "1c[<esc>"1pa]<esc>B
+
+:no <leader><leader>] gEwi[<esc>Ea]<esc>B
+:no <leader>] gEwi[<esc>ea]<esc>B
+:vn <leader>] "1c[<esc>"1pa]<esc>B
+
+" 3+3 => #{3+3}
+" user.name => #{user.name}
+" user_name => #{user_name}
+:no <leader><leader># gEwi#{<esc>Ea}<esc>B
+:no <leader># gEwi#{<esc>ea}<esc>B
+" 3 + 3 => #{3 + 3}
+:vn <leader># "1c#{<esc>"1pa}<esc>B
+
+" example.com => (example.com)
+:no <leader><leader>( gEwi(<esc>Ea)<esc>B
+:no <leader>( gEwi(<esc>ea)<esc>B
+:vn <leader>( "1c(<esc>"1pa)<esc>B
+
+:no <leader><leader>) gEwi(<esc>Ea)<esc>B
+:no <leader>) gEwi(<esc>ea)<esc>B
+:vn <leader>) "1c(<esc>"1pa)<esc>B
+
+" example.com => <example.com>
+:no <leader><leader>< gEwi<<esc>Ea><esc>B
+:no <leader>< gEwi<<esc>ea><esc>B
+:vn <leader>< "1c<<esc>"1pa><esc>B
+
+:no <leader><leader>> gEwi<<esc>Ea><esc>B
+:no <leader>> gEwi<<esc>ea><esc>B
+:vn <leader>> "1c<<esc>"1pa><esc>B
 
 " vim javascript folding
 set foldmethod=indent
