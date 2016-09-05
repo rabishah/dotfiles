@@ -1,4 +1,18 @@
-set nocompatible
+" .______          ___      .______    __   __     _______.   ____    ____  __  .___  ___. .______        ______
+" |   _  \        /   \     |   _  \  |  | (_ )   /       |   \   \  /   / |  | |   \/   | |   _  \      /      |
+" |  |_)  |      /  ^  \    |  |_)  | |  |  |/   |   (----`    \   \/   /  |  | |  \  /  | |  |_)  |    |  ,----'
+" |      /      /  /_\  \   |   _  <  |  |        \   \         \      /   |  | |  |\/|  | |      /     |  |
+" |  |\  \----./  _____  \  |  |_)  | |  |    .----)   |         \    /    |  | |  |  |  | |  |\  \----.|  `----.
+" | _| `._____/__/     \__\ |______/  |__|    |_______/           \__/     |__| |__|  |__| | _| `._____| \______|
+"
+" This is my personal .vimrc file. Most of the mappings are based on how I use
+" vim. Feel free to explore all the mappings based on your use case.
+"
+" Ping me at: rabi@27ae60.com
+"
+" Works well with: es6, git, go, html, json, js, jsx, md(markdown), scss, yaml
+
+set nocompatible            " everyone's first line, use vim settings instead of vi
 
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -18,13 +32,45 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
+Plugin 'digitaltoad/vim-pug'
+Plugin 'whatyouhide/vim-gotham'
+Plugin 'tpope/vim-fugitive'
 call vundle#end()
-filetype plugin indent on
 
+filetype plugin indent on       " detect file types, plugin and indent
+syntax on                       " syntax highlighting
 set encoding=utf-8
-set nu
-set noswapfile
+
+set nu                          " show line numbers
+set noswapfile                  " no swap files
+set undofile                    " undo after you comeback to the file
+set undodir=~/.vim/.undo,~/tmp,/tmp
+set title                       " change terminal title
+set visualbell                  " don't beep
 set noerrorbells
+set showmode                    " show what mode we are on
+set showcmd                     " no of lines selected
+set hidden                      " keep invisible buffers loaded
+set wildmenu                    " command line completion
+set wildmode=list:longest       " in command line completion, first tab for list, second for longest
+set ttyfast
+set visualbell
+set laststatus=2                " always put a status line
+set relativenumber
+set backspace=indent,eol,start
+set ignorecase                  " ignore case while searching
+set smartcase                   " ignore case while search pattern is all lowercase,
+                                " case-sesitive otherwise
+set showmatch                   " show matching parenthesis
+set hlsearch                    " highlight search matches
+set incsearch                   " show search matches as you type
+set gdefault                    " substitutions globally on lines
+set ruler
+set mouse=a
+set ttymouse=xterm2
+set autoread                    " automatically reload files changed outside of vim
+set history=1000                " default is 20
+set undolevels=1000             " why not
 
 " tabs and indentations
 set tabstop=2
@@ -34,27 +80,7 @@ set smarttab
 set expandtab
 set autoindent
 set copyindent
-set backspace=indent,eol,start
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-" cursor and scroll
-set cursorline    "higlight cursor position
-set scrolloff=3   "show atleast 3 lines above/below cursor while scrolling
-set ruler
-
-" searching / moving
-nnoremap / /\v
-vnoremap / /\v
-nnoremap <tab> %
-vnoremap <tab> %
-set ignorecase
-set smartcase
-set showmatch
-set hlsearch
-set incsearch
-set gdefault  "substitutions globally on lines
+set list listchars=tab:»·,trail:·,nbsp:·       " display extra whitespace
 
 " long lines
 set wrap
@@ -62,31 +88,26 @@ set textwidth=79
 set formatoptions=qrn1
 " set colorcolumn=95  too appealing for current theme and color
 
-set showmode
-set showcmd       "no of lines selected
-set hidden        "keep invisible buffers loaded
-set wildmenu      "command line completion
-set wildmode=list:longest   "in command line completion, first tab for list, second for longest
-set ttyfast
-set visualbell
-set laststatus=2
-set relativenumber
-set undofile
+" cursor and scroll
+set cursorline    "higlight cursor position
+set scrolloff=3   "show atleast 3 lines above/below cursor while scrolling
 
+" color scheme
+set background=dark
+colorscheme Tomorrow-Night-Bright
 set guifont=Source\ Code\ Pro\ Regular\ 12
-set mouse=a
-set ttymouse=xterm2
+
+" searching / moving
+" nnoremap / /\v
+" vnoremap / /\v
+nnoremap <tab> %
+vnoremap <tab> %
 
 " split navigations
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-syntax on
-
-" color scheme
-colorscheme Tomorrow-Night-Bright
 
 " doing it vim way
 nnoremap <up> <nop>
@@ -117,14 +138,12 @@ let mapleader = "\<Space>"
 " colorscheme
 noremap <leader>1 :colorscheme delek<cr>
 noremap <leader>2 :colorscheme tomorrow-night-bright<cr>
-noremap <leader>3 :colorscheme slate<cr>
-noremap <leader>4 :colorscheme badwolf<cr>
+noremap <leader>3 :colorscheme gotham<cr>
+noremap <leader>4 :colorscheme gotham256<cr>
 
 " visual mode
 " nmap <Leader><Leader> V
 
-" open a new file
-nnoremap <Leader>o :CtrlP<CR>
 " save a file
 nnoremap <Leader>w :w<CR>
 " quit vim
